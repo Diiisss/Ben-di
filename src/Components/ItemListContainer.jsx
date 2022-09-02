@@ -1,44 +1,43 @@
-import React, { useEffect, useState } from 'react'
-import {collection, getDocs, getFirestore,query,where} from 'firebase/firestore';
-import ItemList from './ItemList';
-import {useParams} from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
+import ItemList from "./ItemList";
+import { useParams } from "react-router-dom";
 
 export default function ItemListContainer() {
-  const [products,setProducts] = useState([]);
-  const {idCategory} = useParams();
+  const [products, setProducts] = useState([]);
+  const { idCategory } = useParams();
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const db = getFirestore();
     let miCollection;
 
-
-//cuando estoy en home o ruta sin params de categoria definidos trae todos los documentos de la coleccion 
-    if(idCategory === undefined){
-      miCollection = collection(db,'Products');
-  }else{
-     miCollection = query(collection(db,'Products'), where("idCategory", "==", idCategory));
-     
+    //cuando estoy en home o ruta sin params de categoria definidos trae todos los documentos de la coleccion
+    if (idCategory === undefined) {
+      miCollection = collection(db, "Products");
+    } else {
+      miCollection = query(
+        collection(db, "Products"),
+        where("idCategory", "==", idCategory)
+      );
     }
-    getDocs(miCollection).then((data)=>{
-      const auxProducts = data.docs.map((product)=> ({
-        ...product.data()
-        ,id: product.id
-      }))
+    getDocs(miCollection).then((data) => {
+      const auxProducts = data.docs.map((product) => ({
+        ...product.data(),
+        id: product.id,
+      }));
       setProducts(auxProducts);
-    
-    
     });
-    
-    
-  },[idCategory])
-
+  }, [idCategory]);
 
   return (
     <>
-    <ItemList products={products}/>;
-
+      <ItemList products={products} />;
     </>
-  )
+  );
 }
-

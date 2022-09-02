@@ -10,14 +10,11 @@ export default function Cart() {
 
   return(
     <>
-    {cart.map((item)=>(
-    
+    {cart.map((item)=>(    
     <div key={item.id}>
       {item.Name + " " + item.count} 
       <span onClick={()=> deleteFromCart(item.id)}>🗑️</span>
-    </div>
-    
-
+    </div>  
     ))}
     <div>
       Tienes en el  🛒 {totalCount} articulos su total es 💲{totalToPay}

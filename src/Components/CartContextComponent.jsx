@@ -1,57 +1,53 @@
-
-import React, { useEffect } from 'react'
-import { createContext,useState } from 'react';
-
+import React, { useEffect } from "react";
+import { createContext, useState } from "react";
 
 export const cartContext = createContext();
 
-export default function CartContextComponent({children}) {
-    const [cart,setCart] = useState([]);
-    const [totalCount, setTotalCount] = useState(0);
-    const [totalToPay, setTotalToPay] = useState(0);
+export default function CartContextComponent({ children }) {
+  const [cart, setCart] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalToPay, setTotalToPay] = useState(0);
 
+  function addToCart(item, count) {
+    const cartAux = [...cart];
+    //   console.log("itemcount queriendo agregar algo",item,count);
+    let foundInCart = false;
+    for (let i = 0; i < cartAux.length; i++) {
+      if (cartAux[i] === item.id) {
+        cartAux[i].count = cartAux[i].count + count;
+        foundInCart = true;
+      }
+    }
+    if (!foundInCart) {
+      cartAux.push({ ...item, count });
+    }
 
-
-function addToCart(item,count){
-const cartAux = [...cart];
-     //   console.log("itemcount queriendo agregar algo",item,count);
- let foundInCart = false;
- for(let i=0; i < cartAux.length; i++){
- if  (cartAux[i] === item.id){
- cartAux[i].count = cartAux[i].count + count;
- foundInCart = true
+    setCart(cartAux);
   }
- }
- if(!foundInCart){
-    cartAux.push({...item,count})
-   }
-
-  setCart(cartAux);
-
+  function deleteFromCart(id) {
+    setCart(cart.filter((item) => item.id !== id));
   }
-  function deleteFromCart(id){
-     setCart(cart.filter(item=> item.id !== id));
-        
-  }
-  function deleteAllFromCart(){
+  function deleteAllFromCart() {
     setCart([]);
-       
- }
+  }
 
-      useEffect(()=>{
-        setTotalCount(cart.reduce((acc,item)=> acc + item.count ,0));
-        setTotalToPay(cart.reduce((acc,item)=> acc + item.count * item.Price ,0));
-
-
-      },[cart]);
-    
-
+  useEffect(() => {
+    setTotalCount(cart.reduce((acc, item) => acc + item.count, 0));
+    setTotalToPay(cart.reduce((acc, item) => acc + item.count * item.Price, 0));
+  }, [cart]);
 
   return (
-                    <cartContext.Provider value={{cart, addToCart,totalCount,totalToPay,deleteFromCart,deleteAllFromCart}}>
-                      {children}
-                    </cartContext.Provider>
-
-
-  )
+    <cartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        totalCount,
+        totalToPay,
+        deleteFromCart,
+        deleteAllFromCart,
+      }}
+    >
+      {children}
+    </cartContext.Provider>
+  );
 }
