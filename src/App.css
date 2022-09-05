@@ -1,5 +1,24 @@
 .App {
   text-align: center;
+  
+}
+body  {
+ background-image: url(./Components/img/image1.jpeg);
+  background-color: #282c34;
+}
+.divitem{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5px;
+}
+.puto{
+  flex-direction: row;
+}
+p{
+  color:black;
+  font: bold;
+  font-family: fantasy;
+  font-size: medium;
 }
 
 .App-logo {
@@ -25,7 +44,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color:#282c34 !important;
 }
 
 @keyframes App-logo-spin {

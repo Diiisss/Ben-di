@@ -7,6 +7,7 @@ import ItemDetailContainer from './Components/ItemDetailContainer';
 import ChecKout from './Components/ChecKout';
 import Cart from './Components/Cart';
 import CartContextComponent from './Components/CartContextComponent';
+import NotFound from './Components/NotFound';
 
 
 
@@ -16,19 +17,23 @@ export default function App() {
 
   return (
     <>
+  
     <CartContextComponent>
-    <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<ItemListContainer />} />
-        <Route path='/category/:idCategory' element={<ItemListContainer />} />
-        <Route path='/item/:idItem' element={<ItemDetailContainer/>} />
-        <Route path='/carrito' element={<Cart />} />
-        <Route path='/checkout' element={<ChecKout />} />
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
 
-      </Routes>
-    </BrowserRouter>
+          <Route path='/' element={<ItemListContainer />} />
+          <Route path='/category/:idCategory' element={<ItemListContainer />} />
+          <Route path='/item/:idItem' element={<ItemDetailContainer/>} />
+          <Route path='/carrito' element={<Cart />} />
+          <Route path='/checkout' element={<ChecKout />} />
+          <Route path='*' element={<NotFound/>} />
+
+        </Routes>
+      </BrowserRouter>
     </CartContextComponent>
+    
 
     </>
   );

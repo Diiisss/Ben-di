@@ -37,7 +37,7 @@ export default function ItemListContainer() {
 
   return (
     <>
-      <ItemList products={products} />;
+      <ItemList products={products} />
     </>
   );
 }
